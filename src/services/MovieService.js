@@ -20,5 +20,8 @@ export default {
     // Would want to scope this to the user
     // when we add the idea of users
     return apiClient.get("/movies")
+  },
+  saveMovieReview(movieReview) {
+    return apiClient.post("/movie", movieReview)
   }
 }
