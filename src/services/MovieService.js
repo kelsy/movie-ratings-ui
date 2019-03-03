@@ -11,7 +11,7 @@ const apiClient = axios.create({
 
 export default {
   searchMovies(title) {
-    return apiClient.get("/movies?title=" + title)
+    return apiClient.get("/find_movie?title=" + title)
   },
   getMovie(id) {
     return apiClient.get("/movie/" + id)

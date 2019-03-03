@@ -1,21 +1,18 @@
 <template>
   <div class="movie-list">
     <h1>Favorite Movies</h1>
-    <template v-for="movie in movies">
-      <router-link class="movie-link"
-             :to="{ name: 'movie-show', params: { id: movie.id } }">
-        <div class="movie-info">
-          {{ movie.id }} - {{ movie.title }}
-        </div>
-      </router-link>
-    </template>
+    <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie" />
   </div>
 </template>
 
 <script>
 import MovieService from '@/services/MovieService.js'
+import MovieListItem from '@/components/MovieListItem.vue'
 
 export default {
+  components: {
+    MovieListItem
+  },
   data() {
     return {
       movies: []

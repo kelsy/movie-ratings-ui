@@ -1,14 +1,18 @@
 <template>
   <div class="movie-show">
-    <h1>Movie: {{ movie.title }}</h1>
+    <MovieDetails :movie="movie" />
   </div>
 </template>
 
 <script>
 import MovieService from "@/services/MovieService.js"
+import MovieDetails from '@/components/MovieDetails.vue'
 
 export default {
   props: ["id"],
+  components: {
+    MovieDetails
+  },
   data() {
     return {
       movie: {}
