@@ -14,7 +14,10 @@ import MovieService from "@/services/MovieService.js"
 import MovieDetails from '@/components/MovieDetails.vue'
 
 export default {
-  props: ["id"],
+  props: {
+    id: [String, Number],
+    movieData: null
+  },
   components: {
     MovieDetails
   },
@@ -24,13 +27,17 @@ export default {
     }
   },
   created() {
-    MovieService.getMovie(this.id)
-      .then(response => {
-        this.movie = response.data
-      })
-      .catch(error => {
-        console.log("There was an error:", error.response)
-      })
+    if (this.movieData) {
+      this.movie = this.movieData
+    } else {
+      MovieService.getMovie(this.id)
+        .then(response => {
+          this.movie = response.data
+        })
+        .catch(error => {
+          console.log("There was an error:", error.response)
+        })
+    }
   }
 }
 </script>

@@ -8,7 +8,7 @@
       <form class="review-form" @submit.prevent="onSubmit">
         <p v-if="errors.length">
           <b>Please correct the following error(s):</b>
-          <ul v-for="error in errors">
+          <ul v-for="(error, index) in errors" :key="index">
             <li>{{error}}</li>
           </ul>
         </p>
@@ -84,6 +84,7 @@ export default {
         this.review = null
         this.rating = null
       } else {
+        this.errors = []
         if (!this.movie) this.errors.push("Movie required.")
         if (!this.review) this.errors.push("Review required.")
         if (!this.rating) this.errors.push("Rating required.")

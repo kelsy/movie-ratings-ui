@@ -3,12 +3,9 @@
     <h1>Find a Movie</h1>
 
     <form class="movie-search-form" @submit.prevent="onSubmit">
-      <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul v-for="error in errors">
-          <li>{{error}}</li>
-        </ul>
-      </p>
+      <div v-if="errors.length">
+        <p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+      </div>
 
       <p>
         <label for="name">Movie Title: </label>
@@ -41,7 +38,12 @@ export default {
           .then(response => {
             let movie = response.data
 
-            if (movie) {
+            if (movie.id) {
+              this.$router.push({
+                name: 'movie-show',
+                params: { id: movie.id, movieData: movie }
+              })
+            } else if (movie.title) {
               this.$router.push({
                 name: 'movie-create',
                 params: { movie: movie }
@@ -54,6 +56,7 @@ export default {
             console.log("There was an error:", error.response)
           })
       } else {
+        this.errors = []
         if(!this.title) this.errors.push("Title required.")
       }
     }
