@@ -21,7 +21,7 @@ export default {
     // when we add the idea of users
     return apiClient.get("/movies")
   },
-  saveMovieReview(movieReview) {
-    return apiClient.post("/movie", movieReview)
+  saveMovie(movie) {
+    return apiClient.post("/movie", movie)
   }
 }

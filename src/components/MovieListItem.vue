@@ -4,7 +4,7 @@
     <router-link v-if="movie.id"
                  class="movie-link"
                  :to="{ name: 'movie-show', params: { id: movie.id } }">
-      Edit
+      View Details
     </router-link>
   </div>
 </template>

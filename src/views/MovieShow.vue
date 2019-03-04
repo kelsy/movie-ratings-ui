@@ -1,6 +1,11 @@
 <template>
   <div class="movie-show">
-    <MovieDetails :movie="movie" />
+    <MovieDetails class="movie-details" :movie="movie" />
+    <div class="movie-review" v-if="movie">
+      <h2>Review:</h2>
+      <p>{{ movie.review }}</p>
+      <p><b>Rating:</b> {{ movie.rating }} / 5</p>
+    </div>
   </div>
 </template>
 
@@ -15,7 +20,7 @@ export default {
   },
   data() {
     return {
-      movie: {}
+      movie: null
     }
   },
   created() {
@@ -30,5 +35,22 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
+.movie-show {
+  display: flex;
+}
+
+.movie-details {
+  width: 60%;
+}
+
+.movie-review {
+  padding: 30px;
+  text-align: left;
+  width: 30%;
+}
+
+label {
+  padding-right: 20px;
+}
 </style>

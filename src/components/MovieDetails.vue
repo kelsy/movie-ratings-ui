@@ -1,27 +1,46 @@
 <template>
-  <div v-if="movie.title" class="movie-details">
-   <h2>{{ movie.title }}</h2>
+  <div v-if="movie && movie.title" class="movie-details">
+    <div class="movie-poster">
+      <img v-if="movie.poster" :src="movie.poster">
+      <img v-else src="@/assets/film-reel.png">
+    </div>
 
-   <MovieReviewShow v-if="movie.id" :review="movie.review" />
-   <MovieReviewCreate v-else :movie="movie" />
+    <div class="movie-data">
+      <h2>{{ movie.title }} ({{ movie.year ? movie.year : "Year Unknown" }})</h2>
+      <p>{{ movie.plot }}</p>
+    </div>
   </div>
 
   <div v-else class="not-found">
-    Movie Not Found.
+    <h2>Movie Not Found :(</h2>
   </div>
 </template>
 
 <script>
-import MovieReviewCreate from '@/components/MovieReviewCreate.vue'
-import MovieReviewShow from '@/components/MovieReviewShow.vue'
-
 export default {
-  components: {
-    MovieReviewCreate,
-    MovieReviewShow
-  },
   props: {
     movie: Object
   }
 }
 </script>
+
+<style scoped>
+.movie-details {
+  display: flex;
+  padding: 30px;
+}
+
+.movie-data, .not-found {
+  padding-left: 30px;
+  width: 60%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.movie-poster {
+  width: 30%;
+}
+</style>

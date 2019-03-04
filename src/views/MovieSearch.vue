@@ -19,19 +19,14 @@
         <input type="submit" value="Search">
       </p>
     </form>
-
-    <MovieDetails v-if="movie" :movie="movie"/>
   </div>
 </template>
 
 <script>
-import MovieDetails from '@/components/MovieDetails.vue'
+
 import MovieService from '@/services/MovieService.js'
 
 export default {
-  components: {
-    MovieDetails
-  },
   data() {
     return {
       title: null,
@@ -44,14 +39,20 @@ export default {
       if (this.title) {
         MovieService.searchMovies(this.title)
           .then(response => {
-            this.movie = response.data
+            let movie = response.data
+
+            if (movie) {
+              this.$router.push({
+                name: 'movie-create',
+                params: { movie: movie }
+              })
+            } else {
+              console.log(response.data)
+            }
           })
           .catch(error => {
             console.log("There was an error:", error.response)
           })
-
-        // reset all the values after submit
-        this.title = null
       } else {
         if(!this.title) this.errors.push("Title required.")
       }
